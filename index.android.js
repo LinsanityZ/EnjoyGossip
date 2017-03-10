@@ -6,9 +6,9 @@
 
 import React, {Component} from 'react';
 import {AppRegistry} from 'react-native';
-import App from './app/containers/app';
+import Root from './app/Root';
 
 /**
  * 配置android入口文件
  */
-AppRegistry.registerComponent('EnjoyGossip', () => App);
+AppRegistry.registerComponent('EnjoyGossip', () => Root);

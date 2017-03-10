@@ -2,32 +2,59 @@
  * Created by function on 2017/3/9.
  */
 import React, {Component} from 'react';
+import {bindActionCreators} from 'redux';
+import Button from '../components/Button';
+import * as counterActions from '../actions/counterActions';
+import {connect} from 'react-redux';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+// @connect(
+//     state => ({
+//         state: state.counter
+//     }), {counterActions})
+class App extends Component {
 
+    constructor(props) {
+        super(props);
+    }
 
-//配置store
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import {Provider} from 'react-redux';
-import thunk from 'redux-thunk';
-import * as reducers from '../reducers';
-import CounterApp from './counterApp';
+    onAdd = () => {
+        const {counterActions} = this.props;
+        counterActions.increment()
+    };
 
+    onDel = () => {
+        const {counterActions} = this.props;
+        counterActions.decrement()
+    };
 
-/**
- * 添加中间件
- * combineReducers方法，把reducers组合成一个传递给store。
- * 配置文件，不用死记硬背，理解才是重点
- * 应用中应有且仅有一个 store。
- */
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const reducer = combineReducers(reducers);
-const store = createStoreWithMiddleware(reducer);
-
-export default class App extends Component {
     render() {
+        const {counter} = this.props;
         return (
-            <Provider store={store}>
-                <CounterApp />
-            </Provider>
+            <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text>{counter.count}</Text>
+                <Button onPress={this.onAdd} text={'add'}/>
+                <Button onPress={this.onDel} text={'del'}/>
+            </View>
         );
     }
 }
+
+// function select (store) {
+//     return {
+//         counter: store.counter
+//     }
+// }
+
+function mapStateToProps(state) {
+    return {
+        counter: state.counter
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        counterActions: bindActionCreators(counterActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

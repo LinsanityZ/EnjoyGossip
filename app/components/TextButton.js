@@ -9,7 +9,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
  * text：显示的内容
  * onPress：回调
  */
-export default class Button extends Component {
+export default class TextButton extends Component {
 
     constructor(props) {
         super(props);

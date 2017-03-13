@@ -14,8 +14,10 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {};
-        this._onPress = this._onPress.bind(this);
+        this.state = {
+            id: 2,
+            user: '',
+        };
     }
 
     _onPress = () => {
@@ -30,15 +32,28 @@ export default class Home extends Component {
             navigator.push({
                 name: 'SecondPage',
                 component: SecondPage,
+                params: {
+                    id: this.state.id,
+                    /**
+                     * 把getUser这个方法传递给下一个页面获取user
+                     * @param user
+                     */
+                    getUser: (user) => {
+                        this.setState({
+                            user: user
+                        })
+                    }
+                }
             })
         }
     };
 
     render() {
-        const {counter} = this.props;
+        const {user} = this.state;
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                <Text>我是第一个界面</Text>
+                {user === '' && <Text>我是第一个界面</Text>}
+                {user !== '' && <Text>用户信息: { JSON.stringify(user) }</Text>}
                 <TextButton onPress={this._onPress} text={'点击跳转'}/>
             </View>
         );

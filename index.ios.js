@@ -13,4 +13,4 @@ import Root from './app/Root';
  * 配置ios入口文件
  */
 
-AppRegistry.registerComponent('EnjoyGossip', () => App);
+AppRegistry.registerComponent('EnjoyGossip', () => Root);

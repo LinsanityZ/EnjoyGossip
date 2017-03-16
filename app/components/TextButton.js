@@ -7,7 +7,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 /**
  * 简单封装一个Button
  * text：显示的内容
- * onPress：回调
+ * onPress：点击事件
  */
 export default class TextButton extends Component {
 
